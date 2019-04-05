@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ProjektTest2.Models.Task>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*<h1>Index</h1>*@
+
+<p>
+    <a asp-action="Create">Create new task</a>
+</p>
+<table class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AddTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinishDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DaysToFinishTask)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.task.TaskId)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinishDay)
+            </td>
+            @if (item.DaysToFinishTask == 1)
+            {
+                <td style="background-color:tomato">
+                    @Html.DisplayFor(modelItem => item.TaskContent)
+                </td>
+            }
+            else if (item.DaysToFinishTask < 3)
+            {
+                <td style="background-color:darkorange">
+                    @Html.DisplayFor(modelItem => item.TaskContent)
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskContent)
+                </td>
+            }
+            <td>
+                @item.DaysToFinishTask
+            </td>
+            @*<td>
+            @item.Task.TaskId
+        </td>*@
+            <td>
+                <a asp-action="Edit" class="btn btn-outline-light" asp-route-id="@item.TaskId">Edit</a> |
+                <a asp-action="Details" class="btn btn-outline-light" asp-route-id="@item.TaskId">Details</a> |
+                <a asp-action="Delete" class="btn btn-outline-light" asp-route-id="@item.TaskId">Delete</a>
+            </td>
+        </tr>
+            }
+    </tbody>
+</table>
+
